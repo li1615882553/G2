@@ -139,7 +139,9 @@ export function computeGradient(
 
   const P = from === 'y' || from === true ? Y : X;
   const theta = getTheta(from, tpShape);
-  const I = indexOf(P);
+  // start from the first undefined point.
+  const startIndex = Y.findIndex((item) => item !== undefined);
+  const I = indexOf(P).slice(startIndex === -1 ? Y.length : startIndex);
 
   const [min, max] = extent(I, (i) => P[i]);
   // This need to improve for non-uniform distributed colors.
